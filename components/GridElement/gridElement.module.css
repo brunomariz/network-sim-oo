@@ -1,0 +1,33 @@
+.baseContainerElement {
+  @apply w-7 h-7 hover:bg-opacity-40 flex items-center justify-center;
+}
+
+.baseInnerElement {
+  @apply rounded-full bg-gray-200 w-1/2 h-1/2;
+}
+
+.clickedElement {
+  @apply scale-100 bg-opacity-100 w-4/5 h-4/5;
+}
+
+.animate {
+  animation: appear-anim 3s;
+}
+
+@keyframes appear-anim {
+  0% {
+    background-color: blue;
+  }
+  25% {
+    transform: scale(120%);
+  }
+  50% {
+    color: green;
+  }
+  75% {
+    color: yellow;
+  }
+  100% {
+    color: black;
+  }
+}
