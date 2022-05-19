@@ -10,6 +10,10 @@
   @apply scale-100 bg-opacity-100 w-4/5 h-4/5;
 }
 
+.nodeElement {
+  @apply w-4/5 h-4/5 rounded-none;
+}
+
 .animate {
   animation: appear-anim 3s;
 }
@@ -22,12 +26,10 @@
     transform: scale(120%);
   }
   50% {
-    color: green;
+    background-color: purple;
   }
   75% {
-    color: yellow;
   }
   100% {
-    color: black;
   }
 }

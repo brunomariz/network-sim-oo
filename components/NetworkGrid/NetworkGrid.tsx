@@ -5,30 +5,35 @@ import NetworkFeature from "../../classes/NetworkFeature";
 import GridElement from "../GridElement/GridElement";
 import sytles from "./networkGrid.module.css";
 type Props = {
-  elements: NetworkFeature[];
+  elements: NetworkFeature[][];
   setElements: Function;
+  elementFactory: () => NetworkFeature;
 };
 
-function NetworkGrid({ elements, setElements }: Props) {
-  const handleClickFactory = (index: number, element: NetworkFeature) => () => {
+function NetworkGrid({ elements, setElements, elementFactory }: Props) {
+  const handleClickFactory = (position: Position) => () => {
     let newElements = [...elements];
-    if (elements[index] instanceof Empty) {
-      newElements[index] = element;
+    if (elements[position.x][position.y] instanceof Empty) {
+      newElements[position.x][position.y] = elementFactory();
     } else {
-      newElements[index] = new Empty();
+      newElements[position.x][position.y] = new Empty();
     }
+    console.log(newElements);
+
     setElements(newElements);
   };
 
   return (
     <div className={sytles.networkGrid + " " + sytles.unselectable}>
-      {elements.map((item, index) => {
-        return (
-          <GridElement
-            networkFeature={item}
-            handleClick={handleClickFactory(index, new Link(1))}
-          ></GridElement>
-        );
+      {elements.map((rowItem, row) => {
+        return elements[row].map((item, column) => {
+          return (
+            <GridElement
+              networkFeature={item}
+              handleClick={handleClickFactory({ x: row, y: column })}
+            ></GridElement>
+          );
+        });
       })}
     </div>
   );
