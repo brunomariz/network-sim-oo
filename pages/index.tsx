@@ -7,6 +7,8 @@ import Link from "../classes/Link";
 import Network from "../classes/Network";
 import NetworkFeature from "../classes/NetworkFeature";
 import Node from "../classes/Node";
+import { Signal } from "../classes/Signal";
+import TwistedPair from "../classes/TwistedPair";
 import NetworkGrid from "../components/NetworkGrid/NetworkGrid";
 
 const Home: NextPage = () => {
@@ -29,8 +31,17 @@ const Home: NextPage = () => {
     switch (activeElement) {
       case networkFeatureCategories.Empty:
         return new Empty();
-      case networkFeatureCategories.Link:
-        return new Link(1, TransmissionStatus.notTransmitting);
+      case networkFeatureCategories.TwistedPair:
+        return new TwistedPair(
+          TransmissionStatus.notTransmitting,
+          new Signal(0, false)
+        );
+      // case networkFeatureCategories.Link:
+      //   return new Link(
+      //     0.1,
+      //     TransmissionStatus.notTransmitting,
+      //     new Signal(0, false)
+      //   );
       case networkFeatureCategories.Node:
         return new Node();
 
@@ -65,9 +76,9 @@ const Home: NextPage = () => {
       </button>
       <button
         className="p-2 m-2"
-        onClick={() => setActiveElement(networkFeatureCategories.Link)}
+        onClick={() => setActiveElement(networkFeatureCategories.TwistedPair)}
       >
-        Link
+        Twisted Pair
       </button>
       <button
         className="p-2 m-2"

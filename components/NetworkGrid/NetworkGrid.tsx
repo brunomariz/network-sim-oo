@@ -18,7 +18,6 @@ function NetworkGrid({ elements, setElements, elementFactory }: Props) {
     } else {
       newElements[position.x][position.y] = new Empty();
     }
-    console.log(newElements);
 
     setElements(newElements);
   };

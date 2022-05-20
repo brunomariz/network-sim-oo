@@ -1,0 +1,1 @@
+type SignalType = BitType | null;

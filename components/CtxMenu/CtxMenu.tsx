@@ -12,11 +12,16 @@ function CtxMenu({ ctxAnchorPoint, networkFeature, setShowCtxMenu }: Props) {
   return (
     <div
       style={{ top: ctxAnchorPoint.y, left: ctxAnchorPoint.x }}
-      className="absolute bg-white shadow-md p-2"
+      className="absolute bg-white shadow-md p-2 z-10"
     >
+      <h1 className="mb-2 font-semibold border-b-2 border-b-black">
+        {networkFeature.name}
+      </h1>
       <div className="font-mono">
-        Transmission status:{" "}
-        {TransmissionStatus[networkFeature.transmissionStatus]}
+        Signal: {networkFeature.signal.value} V
+        {networkFeature.signal.corrupted && (
+          <div className="text-red-500">corrupted</div>
+        )}
       </div>
 
       <button
@@ -28,7 +33,7 @@ function CtxMenu({ ctxAnchorPoint, networkFeature, setShowCtxMenu }: Props) {
             networkFeature.transmissionStatus =
               TransmissionStatus.notTransmitting;
           } else {
-            networkFeature.transmissionStatus = TransmissionStatus.transmitting;
+            networkFeature.setTransmitting(2.5);
           }
           setShowCtxMenu(false);
         }}
