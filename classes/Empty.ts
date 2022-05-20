@@ -23,7 +23,6 @@ export default class Empty extends NetworkFeature {
         if (i > -1 && i < elements.length && j > -1 && j < elements[i].length) {
           if (elements[i][j] instanceof Link) {
             count += 1;
-            console.log("found");
           }
         }
       }

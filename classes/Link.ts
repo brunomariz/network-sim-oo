@@ -49,9 +49,7 @@ export default class Link extends NetworkFeature {
           this.neighborsTransmitting = true;
           this.neighborsSignalSum += elements[i][j].signal.value;
           if (elements[i][j].signal.corrupted) {
-            // this.signal.corrupted = true;
             this.sufferedInterference = true;
-            console.log(this.neighborsSignalSum);
           }
         }
       }

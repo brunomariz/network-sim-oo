@@ -1,5 +1,5 @@
 .networkGrid {
-  @apply grid pt-5;
+  @apply grid p-5;
 }
 
 .unselectable {

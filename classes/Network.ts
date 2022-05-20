@@ -11,7 +11,12 @@ export default class Network {
   sizeY: number;
   elements: NetworkFeature[][];
 
-  constructor(sizeX: number, sizeY: number, elements?: NetworkFeature[][]) {
+  constructor(
+    sizeX: number,
+    sizeY: number,
+    elements?: NetworkFeature[][],
+    template?: "stripes" | "icon"
+  ) {
     this.sizeX = sizeX;
     this.sizeY = sizeY;
 
@@ -49,31 +54,29 @@ export default class Network {
       emptyArray[4][0] = new Node();
       emptyArray[6][0] = new Node();
       emptyArray[8][0] = new Node();
-      for (let i = 1; i < emptyArray[0].length; i++) {
-        emptyArray[0][i] = new TwistedPair(
-          TransmissionStatus.notTransmitting,
-          new Signal(0, false)
-        );
-        emptyArray[2][i] = new TwistedPair(
-          TransmissionStatus.notTransmitting,
-          new Signal(0, false)
-        );
-        emptyArray[4][i] = new TwistedPair(
-          TransmissionStatus.notTransmitting,
-          new Signal(0, false)
-        );
-        emptyArray[6][i] = new TwistedPair(
-          TransmissionStatus.notTransmitting,
-          new Signal(0, false)
-        );
-        emptyArray[8][i] = new TwistedPair(
-          TransmissionStatus.notTransmitting,
-          new Signal(0, false)
-        );
+      for (let index = 0; index < emptyArray.length; index += 2) {
+        emptyArray[index][0] = new Node();
+        for (let j = 1; j < emptyArray[0].length; j++) {
+          emptyArray[index][j] = new TwistedPair(
+            TransmissionStatus.notTransmitting,
+            new Signal(0, false)
+          );
+        }
       }
     };
 
-    generateStripes();
+    switch (template ?? "icon") {
+      case "icon":
+        generateIcon();
+        break;
+      case "stripes":
+        generateStripes();
+        break;
+
+      default:
+        break;
+    }
+    if (template) generateStripes();
     // emptyArray[2][5] = new Link(1, TransmissionStatus.transmitting, 2.5);
     // emptyArray[2][6] = new Link(1, TransmissionStatus.notTransmitting, 0);
     // emptyArray[2][7] = new Link(1, false);
