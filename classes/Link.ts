@@ -15,11 +15,10 @@ export default class Link extends NetworkFeature {
     transmissionStatus: TransmissionStatus,
     signal: Signal
   ) {
-    super("#101044", transmissionStatus);
+    super(transmissionStatus);
 
     this.signal = signal;
     this.errorRate = errorRate;
-    this.color = this.getNewColor();
   }
 
   tick(elements: NetworkFeature[][], position: Position): NetworkFeature {

@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { TransmissionStatus } from "../../@types/transmissionStatus";
+import Link from "../../classes/Link";
 import NetworkFeature from "../../classes/NetworkFeature";
 import Node from "../../classes/Node";
+import TwistedPair from "../../classes/TwistedPair";
 import CtxMenu from "../CtxMenu/CtxMenu";
 import styles from "./gridElement.module.css";
 
@@ -16,6 +18,27 @@ function GridElement({ networkFeature, handleClick }: Props) {
   const handleContextMenu = () => {
     setShowCtxMenu(!showCtxMenu);
     setClickable(false);
+  };
+
+  const getClasses = (networkFeature: NetworkFeature) => {
+    const classes =
+      (networkFeature instanceof Node && styles.nodeElement) +
+      " " +
+      (networkFeature instanceof Link && styles.linkElement) +
+      " " +
+      (networkFeature instanceof TwistedPair && styles.tpElement) +
+      " " +
+      (networkFeature.transmissionStatus == TransmissionStatus.transmitting &&
+        networkFeature instanceof TwistedPair &&
+        styles.transmittingLink) +
+      " " +
+      (networkFeature.transmissionStatus ==
+        TransmissionStatus.justTransmitted &&
+        networkFeature instanceof Link &&
+        styles.justTransmittedLink) +
+      " " +
+      (networkFeature.signal.corrupted && styles.corruptedLink);
+    return classes;
   };
 
   return (
@@ -54,11 +77,8 @@ function GridElement({ networkFeature, handleClick }: Props) {
         <div
           className={
             styles.baseInnerElement +
-            ` ${clicked && styles.animate} ${
-              networkFeature instanceof Node && styles.nodeElement
-            }`
+            ` ${clicked && styles.animate} ${getClasses(networkFeature)}`
           }
-          style={{ backgroundColor: networkFeature.color }}
         ></div>
         {showCtxMenu && (
           <CtxMenu

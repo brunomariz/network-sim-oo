@@ -11,7 +11,25 @@
 }
 
 .nodeElement {
-  @apply w-4/5 h-4/5 rounded-none;
+  @apply w-4/5 h-4/5 rounded-none bg-blue-900;
+}
+
+.linkElement {
+  @apply bg-opacity-40;
+}
+
+.tpElement {
+  background: #338274;
+  @apply linkElement opacity-30;
+}
+.justTransmittedLink {
+  @apply opacity-40;
+}
+.transmittingLink {
+  @apply opacity-100;
+}
+.corruptedLink {
+  filter: invert(100%);
 }
 
 .animate {
