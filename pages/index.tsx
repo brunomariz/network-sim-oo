@@ -10,12 +10,30 @@ import Node from "../classes/Node";
 import { Signal } from "../classes/Signal";
 import TwistedPair from "../classes/TwistedPair";
 import NetworkGrid from "../components/NetworkGrid/NetworkGrid";
+import { FiPlay, FiPause, FiRefreshCw } from "react-icons/fi";
 
 const Home: NextPage = () => {
-  const [network, setNetwork] = useState(new Network(10, 45));
+  const networkSize = [10, 45];
+  const [network, setNetwork] = useState(
+    new Network(networkSize[0], networkSize[1])
+  );
   const [activeElement, setActiveElement] = useState(
     networkFeatureCategories.Empty
   );
+  const [run, setRun] = useState(false);
+
+  useEffect(() => {
+    const newIntervalId = setInterval(() => {
+      if (run) {
+        setElements(network.tick().elements);
+      }
+    }, 300);
+    console.log(newIntervalId);
+
+    for (let i = 1; i < Number(newIntervalId); i++) {
+      window.clearInterval(i);
+    }
+  }, [run]);
 
   const setElements = (elements: NetworkFeature[][]) => {
     let alteredNetwork = new Network(
@@ -53,12 +71,33 @@ const Home: NextPage = () => {
   return (
     <div className="bg-gray-100 min-h-screen">
       <button
-        className="p-2 m-2"
+        className={"mx-2"}
         onClick={() => {
-          setNetwork(new Network(10, 45));
+          setRun(false);
+          setNetwork(new Network(networkSize[0], networkSize[1]));
         }}
       >
-        Reset
+        <FiRefreshCw></FiRefreshCw>
+      </button>
+      <button
+        className={"mx-2"}
+        onClick={() => {
+          setRun(false);
+        }}
+      >
+        <div className="flex items-center">
+          <FiPause></FiPause> <span className="pl-1">Stop</span>
+        </div>
+      </button>
+      <button
+        className={`mx-2 bg-gray-900 text-gray-100 ${run && "text-opacity-30"}`}
+        onClick={() => {
+          setRun(true);
+        }}
+      >
+        <div className="flex items-center">
+          <FiPlay></FiPlay> <span className="pl-1">Start</span>
+        </div>
       </button>
       <button
         className="p-2 m-2"
