@@ -7,8 +7,9 @@ export default class Link extends NetworkFeature {
   name: string = "Link";
 
   errorRate: number;
-  neighborsTransmitting = false;
-  neighborsSignalSum = 0;
+  protected neighborsTransmitting = false;
+  protected neighborsSignalSum = 0;
+  protected sufferedInterference = false;
 
   constructor(
     errorRate: number = 0.1,
@@ -25,6 +26,7 @@ export default class Link extends NetworkFeature {
     // Initialize variables
     this.neighborsTransmitting = false;
     this.neighborsSignalSum = 0;
+    this.sufferedInterference = false;
     // Define neighbors in terms of offset from position row and column
     // Ex: [-1, 0] signifies neighbor above (row + (-1), column)
     // Ex: [0, 1]  signifies neighbor to the right (row, column + 1)
@@ -44,11 +46,13 @@ export default class Link extends NetworkFeature {
         if (
           elements[i][j].transmissionStatus == TransmissionStatus.transmitting
         ) {
-          if (elements[i][j].signal.corrupted) {
-            this.signal.corrupted = true;
-          }
           this.neighborsTransmitting = true;
           this.neighborsSignalSum += elements[i][j].signal.value;
+          if (elements[i][j].signal.corrupted) {
+            // this.signal.corrupted = true;
+            this.sufferedInterference = true;
+            console.log(this.neighborsSignalSum);
+          }
         }
       }
     }
@@ -67,7 +71,7 @@ export default class Link extends NetworkFeature {
       return new Link(
         this.errorRate,
         TransmissionStatus.transmitting,
-        new Signal(this.neighborsSignalSum, this.signal.corrupted)
+        new Signal(this.neighborsSignalSum, this.sufferedInterference)
       );
     } else if (this.transmissionStatus == TransmissionStatus.transmitting) {
       return new Link(
@@ -88,26 +92,7 @@ export default class Link extends NetworkFeature {
     const random = Math.floor(Math.random() / this.errorRate);
     if (random == 0) {
       this.neighborsSignalSum += 1;
-      this.signal.corrupted = true;
-    }
-  }
-
-  getNewColor() {
-    switch (this.transmissionStatus) {
-      case TransmissionStatus.notTransmitting:
-        return "#101044";
-
-      case TransmissionStatus.transmitting:
-        if (this.signal.corrupted) {
-          return "#ef5544";
-        }
-        return "#10ef44";
-
-      case TransmissionStatus.justTransmitted:
-        return "#088f33";
-
-      default:
-        return "#101044";
+      this.sufferedInterference = true;
     }
   }
 }

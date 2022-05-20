@@ -1,5 +1,5 @@
 .baseContainerElement {
-  @apply w-7 h-7 hover:bg-opacity-40 flex items-center justify-center;
+  @apply w-7 h-7 flex items-center justify-center;
 }
 
 .baseInnerElement {

@@ -3,8 +3,9 @@ import Link from "./Link";
 import NetworkFeature from "./NetworkFeature";
 
 export default class Empty extends NetworkFeature {
+  name = "Air";
   constructor() {
-    super("#d4d4d4", TransmissionStatus.notTransmitting);
+    super(TransmissionStatus.notTransmitting);
   }
 
   tick(elements: NetworkFeature[][], position: Position): NetworkFeature {

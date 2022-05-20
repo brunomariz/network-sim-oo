@@ -23,7 +23,13 @@ function NetworkGrid({ elements, setElements, elementFactory }: Props) {
   };
 
   return (
-    <div className={sytles.networkGrid + " " + sytles.unselectable}>
+    <div
+      className={sytles.networkGrid + " " + sytles.unselectable}
+      style={{
+        gridTemplateColumns: `repeat(${elements[0].length}, auto) `,
+        width: `${1.75 * elements[0].length}rem`,
+      }}
+    >
       {elements.map((rowItem, row) => {
         return elements[row].map((item, column) => {
           return (

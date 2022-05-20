@@ -1,6 +1,7 @@
 import React from "react";
 import { TransmissionStatus } from "../../@types/transmissionStatus";
 import NetworkFeature from "../../classes/NetworkFeature";
+import TwistedPair from "../../classes/TwistedPair";
 
 type Props = {
   ctxAnchorPoint: Position;
@@ -11,7 +12,7 @@ type Props = {
 function CtxMenu({ ctxAnchorPoint, networkFeature, setShowCtxMenu }: Props) {
   return (
     <div
-      style={{ top: ctxAnchorPoint.y, left: ctxAnchorPoint.x }}
+      style={{ top: ctxAnchorPoint.y - 2, left: ctxAnchorPoint.x - 2 }}
       className="absolute bg-white shadow-md p-2 z-10"
     >
       <h1 className="mb-2 font-semibold border-b-2 border-b-black">
@@ -23,6 +24,18 @@ function CtxMenu({ ctxAnchorPoint, networkFeature, setShowCtxMenu }: Props) {
           <div className="text-red-500">corrupted</div>
         )}
       </div>
+      {networkFeature instanceof TwistedPair && (
+        <div className="font-mono">
+          <ul>
+            <li>
+              BER (per element): {networkFeature.errorRate.toExponential()}
+            </li>
+            <li>
+              BER (per 100 m): {TwistedPair.berPerMaxLength.toExponential()}
+            </li>
+          </ul>
+        </div>
+      )}
 
       <button
         className="text-sm bg-slate-300 p-1 underline-offset-2 border-2 border-gray-900 border-opacity-0 hover:border-opacity-75"

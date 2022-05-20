@@ -19,28 +19,61 @@ export default class Network {
       ...Array.from(Array(sizeX), () => new Array(sizeY).fill(new Empty())),
     ];
 
-    emptyArray[3][23] = new Node();
-    emptyArray[7][20] = new Node();
-    emptyArray[7][26] = new Node();
-    for (let i = 18; i < 29; i++) {
-      emptyArray[5][i] = new TwistedPair(
+    const generateIcon = () => {
+      emptyArray[3][23] = new Node();
+      emptyArray[7][20] = new Node();
+      emptyArray[7][26] = new Node();
+      for (let i = 18; i < 29; i++) {
+        emptyArray[5][i] = new TwistedPair(
+          TransmissionStatus.notTransmitting,
+          new Signal(0, false)
+        );
+      }
+      emptyArray[6][20] = new TwistedPair(
         TransmissionStatus.notTransmitting,
         new Signal(0, false)
       );
-    }
-    emptyArray[6][20] = new TwistedPair(
-      TransmissionStatus.notTransmitting,
-      new Signal(0, false)
-    );
-    emptyArray[4][23] = new TwistedPair(
-      TransmissionStatus.notTransmitting,
-      new Signal(0, false)
-    );
-    emptyArray[6][26] = new TwistedPair(
-      TransmissionStatus.notTransmitting,
-      new Signal(0, false)
-    );
+      emptyArray[4][23] = new TwistedPair(
+        TransmissionStatus.notTransmitting,
+        new Signal(0, false)
+      );
+      emptyArray[6][26] = new TwistedPair(
+        TransmissionStatus.notTransmitting,
+        new Signal(0, false)
+      );
+    };
 
+    const generateStripes = () => {
+      emptyArray[0][0] = new Node();
+      emptyArray[2][0] = new Node();
+      emptyArray[4][0] = new Node();
+      emptyArray[6][0] = new Node();
+      emptyArray[8][0] = new Node();
+      for (let i = 1; i < emptyArray[0].length; i++) {
+        emptyArray[0][i] = new TwistedPair(
+          TransmissionStatus.notTransmitting,
+          new Signal(0, false)
+        );
+        emptyArray[2][i] = new TwistedPair(
+          TransmissionStatus.notTransmitting,
+          new Signal(0, false)
+        );
+        emptyArray[4][i] = new TwistedPair(
+          TransmissionStatus.notTransmitting,
+          new Signal(0, false)
+        );
+        emptyArray[6][i] = new TwistedPair(
+          TransmissionStatus.notTransmitting,
+          new Signal(0, false)
+        );
+        emptyArray[8][i] = new TwistedPair(
+          TransmissionStatus.notTransmitting,
+          new Signal(0, false)
+        );
+      }
+    };
+
+    generateStripes();
     // emptyArray[2][5] = new Link(1, TransmissionStatus.transmitting, 2.5);
     // emptyArray[2][6] = new Link(1, TransmissionStatus.notTransmitting, 0);
     // emptyArray[2][7] = new Link(1, false);

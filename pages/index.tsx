@@ -13,7 +13,7 @@ import NetworkGrid from "../components/NetworkGrid/NetworkGrid";
 import { FiPlay, FiPause, FiRefreshCw } from "react-icons/fi";
 
 const Home: NextPage = () => {
-  const networkSize = [10, 45];
+  const networkSize = [20, 70];
   const [network, setNetwork] = useState(
     new Network(networkSize[0], networkSize[1])
   );
@@ -27,7 +27,7 @@ const Home: NextPage = () => {
       if (run) {
         setElements(network.tick().elements);
       }
-    }, 300);
+    }, 250);
     console.log(newIntervalId);
 
     for (let i = 1; i < Number(newIntervalId); i++) {
@@ -69,67 +69,73 @@ const Home: NextPage = () => {
   };
 
   return (
-    <div className="bg-gray-100 min-h-screen">
-      <button
-        className={"mx-2"}
-        onClick={() => {
-          setRun(false);
-          setNetwork(new Network(networkSize[0], networkSize[1]));
-        }}
-      >
-        <FiRefreshCw></FiRefreshCw>
-      </button>
-      <button
-        className={"mx-2"}
-        onClick={() => {
-          setRun(false);
-        }}
-      >
-        <div className="flex items-center">
-          <FiPause></FiPause> <span className="pl-1">Stop</span>
-        </div>
-      </button>
-      <button
-        className={`mx-2 bg-gray-900 text-gray-100 ${run && "text-opacity-30"}`}
-        onClick={() => {
-          setRun(true);
-        }}
-      >
-        <div className="flex items-center">
-          <FiPlay></FiPlay> <span className="pl-1">Start</span>
-        </div>
-      </button>
-      <button
-        className="p-2 m-2"
-        onClick={() => {
-          setElements(network.tick().elements);
-        }}
-      >
-        Tick
-      </button>
-      <button
-        className="p-2 m-2"
-        onClick={() => setActiveElement(networkFeatureCategories.Empty)}
-      >
-        Empty
-      </button>
-      <button
-        className="p-2 m-2"
-        onClick={() => setActiveElement(networkFeatureCategories.TwistedPair)}
-      >
-        Twisted Pair
-      </button>
-      <button
-        className="p-2 m-2"
-        onClick={() => setActiveElement(networkFeatureCategories.Node)}
-      >
-        Node
-      </button>
-      <NetworkGrid
-        elements={network.elements}
-        setElements={setElements}
-        elementFactory={elementFactory}
-      ></NetworkGrid>
+    <div className="overflow-scoll min-w-min h-full bg-gray-100">
+      <div className="fixed top-0 left-0 bg-gray-50 w-full border-b-2 shadow-sm z-10">
+        <button
+          className={"mx-2"}
+          onClick={() => {
+            setRun(false);
+            setNetwork(new Network(networkSize[0], networkSize[1]));
+          }}
+        >
+          <FiRefreshCw></FiRefreshCw>
+        </button>
+        <button
+          className={"mx-2"}
+          onClick={() => {
+            setRun(false);
+          }}
+        >
+          <div className="flex items-center">
+            <FiPause></FiPause> <span className="pl-1">Stop</span>
+          </div>
+        </button>
+        <button
+          className={`mx-2 bg-gray-900 text-gray-100 ${
+            run && "text-opacity-30"
+          }`}
+          onClick={() => {
+            setRun(true);
+          }}
+        >
+          <div className="flex items-center">
+            <FiPlay></FiPlay> <span className="pl-1">Start</span>
+          </div>
+        </button>
+        <button
+          className="p-2 m-2"
+          onClick={() => {
+            setElements(network.tick().elements);
+          }}
+        >
+          Tick
+        </button>
+        <button
+          className="p-2 m-2"
+          onClick={() => setActiveElement(networkFeatureCategories.Empty)}
+        >
+          Empty
+        </button>
+        <button
+          className="p-2 m-2"
+          onClick={() => setActiveElement(networkFeatureCategories.TwistedPair)}
+        >
+          Twisted Pair
+        </button>
+        <button
+          className="p-2 m-2"
+          onClick={() => setActiveElement(networkFeatureCategories.Node)}
+        >
+          Node
+        </button>
+      </div>
+      <div className="pt-20 h-screen min-w-min p-5 bg-red-400">
+        <NetworkGrid
+          elements={network.elements}
+          setElements={setElements}
+          elementFactory={elementFactory}
+        ></NetworkGrid>
+      </div>
     </div>
   );
 };
