@@ -2,7 +2,9 @@ import React, { useEffect, useState } from "react";
 import { TransmissionStatus } from "../../@types/transmissionStatus";
 import NetworkFeature from "../../classes/NetworkFeature";
 import Node from "../../classes/Node";
+import CtxMenu from "../CtxMenu/CtxMenu";
 import styles from "./gridElement.module.css";
+
 type Props = { networkFeature: NetworkFeature; handleClick: () => void };
 
 function GridElement({ networkFeature, handleClick }: Props) {
@@ -35,6 +37,7 @@ function GridElement({ networkFeature, handleClick }: Props) {
       }}
       onMouseLeave={(e) => {
         setShowCtxMenu(false);
+        setClickable(true);
       }}
       onMouseDown={(e) => {
         if (clickable) {
@@ -47,46 +50,24 @@ function GridElement({ networkFeature, handleClick }: Props) {
       }}
       className={styles.baseContainerElement}
     >
-      <div
-        className={
-          styles.baseInnerElement +
-          ` ${clicked && styles.animate} ${
-            networkFeature instanceof Node && styles.nodeElement
-          }`
-        }
-        style={{ backgroundColor: networkFeature.color }}
-      ></div>
-      {showCtxMenu && (
+      <>
         <div
-          style={{ top: ctxAnchorPoint.y, left: ctxAnchorPoint.x }}
-          className="absolute bg-gray-100 shadow-md p-2"
-        >
-          <div className="font-mono">
-            Transmission status:{" "}
-            {TransmissionStatus[networkFeature.transmissionStatus]}
-          </div>
-          {networkFeature.transmissionStatus !=
-          TransmissionStatus.transmitting ? (
-            <button
-              onClick={() =>
-                (networkFeature.transmissionStatus =
-                  TransmissionStatus.transmitting)
-              }
-            >
-              Set Transmission On
-            </button>
-          ) : (
-            <button
-              onClick={() =>
-                (networkFeature.transmissionStatus =
-                  TransmissionStatus.notTransmitting)
-              }
-            >
-              Set Transmission Off
-            </button>
-          )}
-        </div>
-      )}{" "}
+          className={
+            styles.baseInnerElement +
+            ` ${clicked && styles.animate} ${
+              networkFeature instanceof Node && styles.nodeElement
+            }`
+          }
+          style={{ backgroundColor: networkFeature.color }}
+        ></div>
+        {showCtxMenu && (
+          <CtxMenu
+            ctxAnchorPoint={ctxAnchorPoint}
+            networkFeature={networkFeature}
+            setShowCtxMenu={setShowCtxMenu}
+          ></CtxMenu>
+        )}
+      </>
     </div>
   );
 }
