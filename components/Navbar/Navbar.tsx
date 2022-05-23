@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { FiPause, FiPlay, FiRefreshCw } from "react-icons/fi";
 import { BsCircle, BsCircleFill, BsSquareFill } from "react-icons/bs";
 import { networkFeatureCategories } from "../../@types/networkFeatureCategories";
 import Network from "../../classes/Network";
 import NavButton from "../NavButton/NavButton";
+import DropdownMenu from "../DropdownMenu/DropdownMenu";
 
 type Props = {
   setRun: Function;
@@ -24,14 +25,47 @@ function Navbar({
   networkSize,
   network,
 }: Props) {
+  const resetNetwork = (running: boolean, template: NetworkTemplate) => {
+    setRun(running);
+    setNetwork(
+      new Network(networkSize[0], networkSize[1], undefined, template)
+    );
+  };
   return (
-    <div className="fixed top-0 left-0 bg-gray-50 w-screen border-b-2 shadow-sm z-10 flex items-center sm:overflow-hidden overflow-scroll ">
+    <div className="fixed top-0 left-0 bg-gray-50 w-screen border-b-2 shadow-sm z-10 flex items-center sm:overflow-visible overflow-scroll ">
       <div className="inline text-2xl p-5 font-semibold">Network Simulator</div>
+      <DropdownMenu
+        buttons={[
+          {
+            title: "Icon",
+            onClick: () => {
+              resetNetwork(true, "icon");
+            },
+          },
+          {
+            title: "Stripes",
+            onClick: () => {
+              setRun(true);
+              setNetwork(
+                new Network(
+                  networkSize[0],
+                  networkSize[1],
+                  undefined,
+                  "stripes"
+                )
+              );
+            },
+          },
+        ]}
+        title="Network Templates"
+      ></DropdownMenu>
       <button
         className={"mx-2"}
         onClick={() => {
           setRun(false);
-          setNetwork(new Network(networkSize[0], networkSize[1]));
+          setNetwork(
+            new Network(networkSize[0], networkSize[1], undefined, "empty")
+          );
         }}
       >
         <FiRefreshCw></FiRefreshCw>

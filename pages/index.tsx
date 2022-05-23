@@ -17,6 +17,7 @@ import Navbar from "../components/Navbar/Navbar";
 
 const Home: NextPage = () => {
   const networkSize = [30, 60];
+
   const [network, setNetwork] = useState(
     new Network(networkSize[0], networkSize[1])
   );
@@ -32,6 +33,7 @@ const Home: NextPage = () => {
       }
     }, 250);
 
+    // Clear intervals
     for (let i = 1; i < Number(newIntervalId); i++) {
       window.clearInterval(i);
     }
@@ -56,12 +58,6 @@ const Home: NextPage = () => {
           TransmissionStatus.notTransmitting,
           new Signal(0, false)
         );
-      // case networkFeatureCategories.Link:
-      //   return new Link(
-      //     0.1,
-      //     TransmissionStatus.notTransmitting,
-      //     new Signal(0, false)
-      //   );
       case networkFeatureCategories.Node:
         return new Node();
 

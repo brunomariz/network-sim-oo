@@ -7,6 +7,7 @@ type Props = {
   disabled: boolean;
   fill?: boolean;
   outline?: boolean;
+  iconRight?: boolean;
 };
 
 function NavButton({
@@ -16,6 +17,7 @@ function NavButton({
   disabled,
   fill = false,
   outline = false,
+  iconRight = false,
 }: Props) {
   return (
     <button
@@ -28,7 +30,8 @@ function NavButton({
       onClick={onClick}
     >
       <div className="flex items-center">
-        {icon} <span className="px-1">{text}</span>
+        {!iconRight && icon} <span className="px-1">{text}</span>
+        {iconRight && icon}
       </div>
     </button>
   );
