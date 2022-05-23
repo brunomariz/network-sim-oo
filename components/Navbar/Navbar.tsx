@@ -25,7 +25,7 @@ function Navbar({
   network,
 }: Props) {
   return (
-    <div className="fixed top-0 left-0 bg-gray-50 w-screen border-b-2 shadow-sm z-10 flex items-center">
+    <div className="fixed top-0 left-0 bg-gray-50 w-screen border-b-2 shadow-sm z-10 flex items-center sm:overflow-hidden overflow-scroll ">
       <div className="inline text-2xl p-5 font-semibold">Network Simulator</div>
       <button
         className={"mx-2"}

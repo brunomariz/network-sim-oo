@@ -34,6 +34,7 @@ function NetworkGrid({ elements, setElements, elementFactory }: Props) {
         return elements[row].map((item, column) => {
           return (
             <GridElement
+              key={`${row}${column}`}
               networkFeature={item}
               handleClick={handleClickFactory({ x: row, y: column })}
             ></GridElement>

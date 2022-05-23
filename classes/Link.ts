@@ -4,7 +4,7 @@ import NetworkFeature from "./NetworkFeature";
 import { Signal } from "./Signal";
 
 export default class Link extends NetworkFeature {
-  name: string = "Link";
+  featureName: string = "Link";
 
   errorRate: number;
   protected neighborsTransmitting = false;

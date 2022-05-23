@@ -16,7 +16,7 @@ function CtxMenu({ ctxAnchorPoint, networkFeature, setShowCtxMenu }: Props) {
       className="absolute bg-white shadow-md p-2 z-10"
     >
       <h1 className="mb-2 font-semibold border-b-2 border-b-black">
-        {networkFeature.name}
+        {networkFeature.featureName}
       </h1>
       <div className="font-mono">
         Signal: {networkFeature.signal.value} V

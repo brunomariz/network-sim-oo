@@ -3,7 +3,7 @@ import Link from "./Link";
 import NetworkFeature from "./NetworkFeature";
 
 export default class Empty extends NetworkFeature {
-  name = "Air";
+  featureName = "Air";
   constructor() {
     super(TransmissionStatus.notTransmitting);
   }

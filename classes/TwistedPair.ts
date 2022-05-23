@@ -4,7 +4,7 @@ import NetworkFeature from "./NetworkFeature";
 import { Signal } from "./Signal";
 
 export default class TwistedPair extends Link {
-  name: string = "Twisted Pair Link";
+  featureName: string = "Twisted Pair Link";
   // Max length for Cat5 or Cat6 Ethernet cables: 100 m
   // divide by element size to get max length in elements [m/el]
   static maxLenght = 100 / NetworkFeature.elementSize;

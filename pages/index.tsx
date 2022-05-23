@@ -88,14 +88,12 @@ const Home: NextPage = () => {
         run={run}
       ></Navbar>
 
-      <div className="overflow-scoll h-full min-h-screen flex justify-center items-center bg-gray-100">
-        <div className="pt-16">
-          <NetworkGrid
-            elements={network.elements}
-            setElements={setElements}
-            elementFactory={elementFactory}
-          ></NetworkGrid>
-        </div>
+      <div className="overflow-scoll pt-16 h-full min-h-screen flex justify-center items-center min-w-max bg-gray-100">
+        <NetworkGrid
+          elements={network.elements}
+          setElements={setElements}
+          elementFactory={elementFactory}
+        ></NetworkGrid>
       </div>
     </div>
   );
