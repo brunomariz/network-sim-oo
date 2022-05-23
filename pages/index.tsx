@@ -17,6 +17,7 @@ import Navbar from "../components/Navbar/Navbar";
 
 const Home: NextPage = () => {
   const networkSize = [30, 60];
+
   const [network, setNetwork] = useState(
     new Network(networkSize[0], networkSize[1])
   );
@@ -32,6 +33,7 @@ const Home: NextPage = () => {
       }
     }, 250);
 
+    // Clear intervals
     for (let i = 1; i < Number(newIntervalId); i++) {
       window.clearInterval(i);
     }
@@ -56,12 +58,6 @@ const Home: NextPage = () => {
           TransmissionStatus.notTransmitting,
           new Signal(0, false)
         );
-      // case networkFeatureCategories.Link:
-      //   return new Link(
-      //     0.1,
-      //     TransmissionStatus.notTransmitting,
-      //     new Signal(0, false)
-      //   );
       case networkFeatureCategories.Node:
         return new Node();
 
@@ -88,7 +84,7 @@ const Home: NextPage = () => {
         run={run}
       ></Navbar>
 
-      <div className="overflow-scoll pt-16 h-full min-h-screen flex justify-center items-center min-w-max bg-gray-100">
+      <div className="overflow-scoll pt-20 h-full min-h-screen flex justify-center items-center min-w-max bg-gray-100">
         <NetworkGrid
           elements={network.elements}
           setElements={setElements}

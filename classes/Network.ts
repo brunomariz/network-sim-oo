@@ -14,8 +14,8 @@ export default class Network {
   constructor(
     sizeX: number,
     sizeY: number,
-    elements?: NetworkFeature[][],
-    template?: "stripes" | "icon"
+    elements?: NetworkFeature[][] | undefined,
+    template?: NetworkTemplate
   ) {
     this.sizeX = sizeX;
     this.sizeY = sizeY;
@@ -49,11 +49,6 @@ export default class Network {
     };
 
     const generateStripes = () => {
-      emptyArray[0][0] = new Node();
-      emptyArray[2][0] = new Node();
-      emptyArray[4][0] = new Node();
-      emptyArray[6][0] = new Node();
-      emptyArray[8][0] = new Node();
       for (let index = 0; index < emptyArray.length; index += 2) {
         emptyArray[index][0] = new Node();
         for (let j = 1; j < emptyArray[0].length; j++) {
@@ -65,24 +60,24 @@ export default class Network {
       }
     };
 
-    switch (template ?? "icon") {
+    switch (template) {
       case "icon":
         generateIcon();
+        console.log("template icon");
         break;
       case "stripes":
         generateStripes();
+        console.log("template stripes");
+        break;
+      case "empty":
         break;
 
       default:
+        generateIcon();
         break;
     }
-    if (template) generateStripes();
-    // emptyArray[2][5] = new Link(1, TransmissionStatus.transmitting, 2.5);
-    // emptyArray[2][6] = new Link(1, TransmissionStatus.notTransmitting, 0);
-    // emptyArray[2][7] = new Link(1, false);
-    // emptyArray[2][8] = new Link(1, false);
-    // emptyArray[2][9] = new Link(1, false);
-    // emptyArray[2][10] = new Link(1, false);
+    // if (template) generateStripes();
+
     this.elements = elements ?? emptyArray;
   }
 
