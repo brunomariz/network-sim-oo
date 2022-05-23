@@ -7,14 +7,14 @@ interface IDropdownButton {
   onClick: () => void;
 }
 
-type Props = { buttons: IDropdownButton[]; title: string };
+type Props = { buttons: IDropdownButton[]; title: string; run: boolean };
 
-function DropdownMenu({ title, buttons }: Props) {
+function DropdownMenu({ title, buttons, run }: Props) {
   const [collapsed, setCollapsed] = useState(true);
   return (
     <div className="relative inline-block min-h-max">
       <NavButton
-        disabled={false}
+        disabled={run}
         icon={
           !collapsed ? <FiChevronUp size={23} /> : <FiChevronDown size={23} />
         }

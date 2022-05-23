@@ -26,15 +26,17 @@ function Navbar({
   network,
 }: Props) {
   const resetNetwork = (running: boolean, template: NetworkTemplate) => {
-    setRun(running);
+    setRun(false);
     setNetwork(
       new Network(networkSize[0], networkSize[1], undefined, template)
     );
+    setRun(running);
   };
   return (
     <div className="fixed top-0 left-0 bg-gray-50 w-screen border-b-2 shadow-sm z-10 flex items-center sm:overflow-visible overflow-scroll ">
       <div className="inline text-2xl p-5 font-semibold">Network Simulator</div>
       <DropdownMenu
+        run={run}
         buttons={[
           {
             title: "Icon",
@@ -45,15 +47,7 @@ function Navbar({
           {
             title: "Stripes",
             onClick: () => {
-              setRun(true);
-              setNetwork(
-                new Network(
-                  networkSize[0],
-                  networkSize[1],
-                  undefined,
-                  "stripes"
-                )
-              );
+              resetNetwork(true, "stripes");
             },
           },
         ]}
