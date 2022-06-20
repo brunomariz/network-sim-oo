@@ -1,44 +1,38 @@
-import React, { useState } from "react";
-import { FiPause, FiPlay, FiRefreshCw } from "react-icons/fi";
-import { CgTrashEmpty } from "react-icons/cg";
+import React from "react";
 import { BsCircle, BsCircleFill, BsSquareFill } from "react-icons/bs";
+import { CgTrashEmpty } from "react-icons/cg";
+import { FiPause, FiPlay } from "react-icons/fi";
 import { networkFeatureCategories } from "../../@types/networkFeatureCategories";
 import Network from "../../classes/Network";
-import NavButton from "../NavButton/NavButton";
-import DropdownMenu from "../DropdownMenu/DropdownMenu";
-import { useAppSelector, useAppDispatch } from "../../redux/hooks";
 import {
   selectRunning,
   start,
   stop,
 } from "../../redux/features/simulation/simulationSlice";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import DropdownMenu from "../DropdownMenu/DropdownMenu";
+import NavButton from "../NavButton/NavButton";
 
 type Props = {
-  // setRun: Function;
   setNetwork: Function;
   setElements: Function;
   setActiveElement: Function;
-  // run: boolean;
   networkSize: number[];
   network: Network;
 };
 
 function Navbar({
-  // setRun,
   setNetwork,
   setElements,
   setActiveElement,
-  // run,
   networkSize,
   network,
 }: Props) {
   const resetNetwork = (running: boolean, template: NetworkTemplate) => {
-    // setRun(false);
     dispatch(stop());
     setNetwork(
       new Network(networkSize[0], networkSize[1], undefined, template)
     );
-    // setRun(running);
     if (running) dispatch(start());
   };
   const running = useAppSelector(selectRunning);

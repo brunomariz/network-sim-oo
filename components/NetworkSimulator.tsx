@@ -7,10 +7,10 @@ import NetworkFeature from "../classes/NetworkFeature";
 import Node from "../classes/Node";
 import { Signal } from "../classes/Signal";
 import TwistedPair from "../classes/TwistedPair";
-import NetworkGrid from "./NetworkGrid/NetworkGrid";
-import Navbar from "./Navbar/Navbar";
-import { useAppSelector } from "../redux/hooks";
 import { selectRunning } from "../redux/features/simulation/simulationSlice";
+import { useAppSelector } from "../redux/hooks";
+import Navbar from "./Navbar/Navbar";
+import NetworkGrid from "./NetworkGrid/NetworkGrid";
 type Props = {};
 
 function NetworkSimulator({}: Props) {
