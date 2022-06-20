@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import simulationReducer from "./features/simulation/simulationSlice";
+import gridReducer from "./features/grid/gridSlice";
 
 const store = configureStore({
   reducer: {
     simulation: simulationReducer,
+    grid: gridReducer,
   },
 });
 

@@ -5,6 +5,11 @@ import { FiPause, FiPlay } from "react-icons/fi";
 import { networkFeatureCategories } from "../../@types/networkFeatureCategories";
 import Network from "../../classes/Network";
 import {
+  clearElements,
+  setCursorElement,
+  tick,
+} from "../../redux/features/grid/gridSlice";
+import {
   selectRunning,
   start,
   stop,
@@ -14,25 +19,25 @@ import DropdownMenu from "../DropdownMenu/DropdownMenu";
 import NavButton from "../NavButton/NavButton";
 
 type Props = {
-  setNetwork: Function;
-  setElements: Function;
-  setActiveElement: Function;
-  networkSize: number[];
-  network: Network;
+  // setNetwork: Function;
+  // setElements: Function;
+  // setActiveElement: Function;
+  // networkSize: number[];
+  // network: Network;
 };
 
-function Navbar({
-  setNetwork,
-  setElements,
-  setActiveElement,
-  networkSize,
-  network,
-}: Props) {
+function Navbar({}: // setNetwork,
+// setElements,
+// setActiveElement,
+// networkSize,
+// network,
+Props) {
   const resetNetwork = (running: boolean, template: NetworkTemplate) => {
     dispatch(stop());
-    setNetwork(
-      new Network(networkSize[0], networkSize[1], undefined, template)
-    );
+    // setNetwork(
+    //   new Network(networkSize[0], networkSize[1], undefined, template)
+    // );
+    dispatch;
     if (running) dispatch(start());
   };
   const running = useAppSelector(selectRunning);
@@ -66,9 +71,10 @@ function Navbar({
       <NavButton
         onClick={() => {
           dispatch(stop());
-          setNetwork(
-            new Network(networkSize[0], networkSize[1], undefined, "empty")
-          );
+          // setNetwork(
+          //   new Network(networkSize[0], networkSize[1], undefined, "empty")
+          // );
+          dispatch(clearElements());
         }}
         disabled={false}
         text="Clear"
@@ -100,7 +106,8 @@ function Navbar({
       <NavButton
         text="Tick"
         onClick={() => {
-          setElements(network.tick().elements);
+          // setElements(network.tick().elements);
+          dispatch(tick());
         }}
         disabled={running}
         icon={<></>}
@@ -111,14 +118,20 @@ function Navbar({
       <NavButton
         disabled={false}
         icon={<BsCircle></BsCircle>}
-        onClick={() => setActiveElement(networkFeatureCategories.Empty)}
+        // onClick={() => setActiveElement(networkFeatureCategories.Empty)}
+        onClick={() =>
+          dispatch(setCursorElement(networkFeatureCategories.Empty))
+        }
         text="Empty"
       ></NavButton>
 
       {/* TP button */}
       <NavButton
         text="Twisted Pair"
-        onClick={() => setActiveElement(networkFeatureCategories.TwistedPair)}
+        // onClick={() => setActiveElement(networkFeatureCategories.TwistedPair)}
+        onClick={() =>
+          dispatch(setCursorElement(networkFeatureCategories.TwistedPair))
+        }
         disabled={false}
         icon={<BsCircleFill></BsCircleFill>}
       ></NavButton>
@@ -127,7 +140,10 @@ function Navbar({
       <NavButton
         disabled={false}
         icon={<BsSquareFill></BsSquareFill>}
-        onClick={() => setActiveElement(networkFeatureCategories.Node)}
+        // onClick={() => setActiveElement(networkFeatureCategories.Node)}
+        onClick={() =>
+          dispatch(setCursorElement(networkFeatureCategories.Node))
+        }
         text="Node"
       ></NavButton>
     </div>

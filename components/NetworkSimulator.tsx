@@ -1,33 +1,27 @@
 import { useEffect, useState } from "react";
-import { networkFeatureCategories } from "../@types/networkFeatureCategories";
-import { TransmissionStatus } from "../@types/transmissionStatus";
-import Empty from "../classes/Empty";
 import Network from "../classes/Network";
 import NetworkFeature from "../classes/NetworkFeature";
-import Node from "../classes/Node";
-import { Signal } from "../classes/Signal";
-import TwistedPair from "../classes/TwistedPair";
+import { setElements, tick } from "../redux/features/grid/gridSlice";
 import { selectRunning } from "../redux/features/simulation/simulationSlice";
-import { useAppSelector } from "../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import Navbar from "./Navbar/Navbar";
 import NetworkGrid from "./NetworkGrid/NetworkGrid";
 type Props = {};
 
 function NetworkSimulator({}: Props) {
-  const networkSize = [30, 60];
+  // const networkSize = [30, 60];
 
-  const [network, setNetwork] = useState(
-    new Network(networkSize[0], networkSize[1])
-  );
-  const [activeElement, setActiveElement] = useState(
-    networkFeatureCategories.Empty
-  );
+  // const [network, setNetwork] = useState(
+  //   new Network(networkSize[0], networkSize[1])
+  // );
   const running = useAppSelector(selectRunning);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     const newIntervalId = setInterval(() => {
       if (running) {
-        setElements(network.tick().elements);
+        // setElements(network.tick().elements);
+        dispatch(tick());
       }
     }, 250);
 
@@ -37,48 +31,29 @@ function NetworkSimulator({}: Props) {
     }
   }, [running]);
 
-  const setElements = (elements: NetworkFeature[][]) => {
-    let alteredNetwork = new Network(
-      network.sizeX,
-      network.sizeY,
-      network.elements
-    );
-    alteredNetwork.elements = elements;
-    setNetwork(alteredNetwork);
-  };
-
-  const elementFactory = () => {
-    switch (activeElement) {
-      case networkFeatureCategories.Empty:
-        return new Empty();
-      case networkFeatureCategories.TwistedPair:
-        return new TwistedPair(
-          TransmissionStatus.notTransmitting,
-          new Signal(0, false)
-        );
-      case networkFeatureCategories.Node:
-        return new Node();
-
-      default:
-        return new Empty();
-    }
-  };
+  // const setElements = (elements: NetworkFeature[][]) => {
+  // let alteredNetwork = new Network(
+  //   network.sizeX,
+  //   network.sizeY,
+  //   network.elements
+  // );
+  // alteredNetwork.elements = elements;
+  // setNetwork(alteredNetwork);
+  // };
 
   return (
     <div>
       <Navbar
-        setNetwork={setNetwork}
-        setElements={setElements}
-        setActiveElement={setActiveElement}
-        network={network}
-        networkSize={networkSize}
+      // setNetwork={setNetwork}
+      // setElements={(elements: NetworkFeature[][]) => dispatch(setElements(elements))}
+      // network={network}
+      // networkSize={networkSize}
       ></Navbar>
 
       <div className="overflow-scoll pt-20 h-full min-h-screen flex justify-center items-center min-w-max bg-gray-100">
         <NetworkGrid
-          elements={network.elements}
-          setElements={setElements}
-          elementFactory={elementFactory}
+        // elements={network.elements}
+        // setElements={setElements}
         ></NetworkGrid>
       </div>
     </div>
