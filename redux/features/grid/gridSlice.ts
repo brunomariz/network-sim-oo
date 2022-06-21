@@ -55,6 +55,13 @@ export const gridSlice = createSlice({
         newElements
       );
     },
+    copyNetwork: (state) => {
+      state.network = new Network(
+        state.network.sizeX,
+        state.network.sizeY,
+        state.network.elements
+      );
+    },
   },
 });
 
@@ -64,6 +71,7 @@ export const {
   setCursorElement,
   tick,
   resetNetwork,
+  copyNetwork,
 } = gridSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type

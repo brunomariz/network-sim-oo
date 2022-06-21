@@ -6,27 +6,30 @@ import { Signal } from "../classes/Signal";
 import TwistedPair from "../classes/TwistedPair";
 
 export const generateIcon = (elements: NetworkFeature[][]) => {
-  elements[3][23] = new Node();
-  elements[7][20] = new Node();
-  elements[7][26] = new Node();
-  for (let i = 18; i < 29; i++) {
-    elements[5][i] = new TwistedPair(
+  if (elements.length > 6 && elements[0].length > 12) {
+    elements[1][6] = new Node();
+    elements[5][3] = new Node();
+    elements[5][9] = new Node();
+    for (let i = 1; i < 12; i++) {
+      elements[3][i] = new TwistedPair(
+        TransmissionStatus.notTransmitting,
+        new Signal(0, false)
+      );
+    }
+    elements[4][3] = new TwistedPair(
       TransmissionStatus.notTransmitting,
       new Signal(0, false)
     );
+    elements[2][6] = new TwistedPair(
+      TransmissionStatus.notTransmitting,
+      new Signal(0, false)
+    );
+    elements[4][9] = new TwistedPair(
+      TransmissionStatus.notTransmitting,
+      new Signal(0, false)
+    );
+  } else if (elements.length > 6 && elements[0].length > 12) {
   }
-  elements[6][20] = new TwistedPair(
-    TransmissionStatus.notTransmitting,
-    new Signal(0, false)
-  );
-  elements[4][23] = new TwistedPair(
-    TransmissionStatus.notTransmitting,
-    new Signal(0, false)
-  );
-  elements[6][26] = new TwistedPair(
-    TransmissionStatus.notTransmitting,
-    new Signal(0, false)
-  );
   return elements;
 };
 

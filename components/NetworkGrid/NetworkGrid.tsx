@@ -1,11 +1,10 @@
-import React from "react";
 import { networkFeatureCategories } from "../../@types/networkFeatureCategories";
 import { TransmissionStatus } from "../../@types/transmissionStatus";
 import Empty from "../../classes/Empty";
 import Node from "../../classes/Node";
 import { Signal } from "../../classes/Signal";
 import TwistedPair from "../../classes/TwistedPair";
-import { setElements } from "../../redux/features/grid/gridSlice";
+import { copyNetwork, setElements } from "../../redux/features/grid/gridSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import GridElement from "../GridElement/GridElement";
 import sytles from "./networkGrid.module.css";
@@ -51,6 +50,7 @@ function NetworkGrid({}: Props) {
         gridTemplateColumns: `repeat(${network.elements[0].length}, auto) `,
         width: `${1.75 * network.elements[0].length}rem`,
       }}
+      onMouseUp={() => dispatch(copyNetwork())}
     >
       {network.elements.map((rowItem, row) => {
         return network.elements[row].map((item, column) => {
