@@ -5,6 +5,7 @@ import { FiPause, FiPlay } from "react-icons/fi";
 import { networkFeatureCategories } from "../../@types/networkFeatureCategories";
 import {
   clearElements,
+  resetNetwork,
   setCursorElement,
   tick,
 } from "../../redux/features/grid/gridSlice";
@@ -20,14 +21,14 @@ import NavButton from "../NavButton/NavButton";
 type Props = {};
 
 function Navbar({}: Props) {
-  const resetNetwork = (running: boolean, template: NetworkTemplate) => {
-    dispatch(stop());
-    // setNetwork(
-    //   new Network(networkSize[0], networkSize[1], undefined, template)
-    // );
-    dispatch;
-    if (running) dispatch(start());
-  };
+  // const resetNetwork = (running: boolean, template: NetworkTemplate) => {
+  //   dispatch(stop());
+  //   // setNetwork(
+  //   //   new Network(networkSize[0], networkSize[1], undefined, template)
+  //   // );
+  //   dispatch();
+  //   if (running) dispatch(start());
+  // };
   const running = useAppSelector(selectRunning);
   const dispatch = useAppDispatch();
 
@@ -40,13 +41,13 @@ function Navbar({}: Props) {
           {
             title: "Icon",
             onClick: () => {
-              resetNetwork(true, "icon");
+              dispatch(resetNetwork("icon"));
             },
           },
           {
             title: "Stripes",
             onClick: () => {
-              resetNetwork(true, "stripes");
+              dispatch(resetNetwork("stripes"));
             },
           },
         ]}

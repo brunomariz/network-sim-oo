@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { networkFeatureCategories } from "../../../@types/networkFeatureCategories";
 import Network from "../../../classes/Network";
 import NetworkFeature from "../../../classes/NetworkFeature";
+import { templateGenerator } from "../../../utils/templates";
 import type { RootState } from "../../store";
 
 // Define a type for the slice state
@@ -14,7 +15,11 @@ interface GridState {
 const initialWidth = 60;
 const initialHeight = 30;
 const initialState: GridState = {
-  network: new Network(initialHeight, initialWidth, undefined, "stripes"),
+  network: new Network(
+    initialHeight,
+    initialWidth,
+    templateGenerator("icon", initialHeight, initialWidth)
+  ),
   cursorElement: networkFeatureCategories.TwistedPair,
 };
 
@@ -27,12 +32,7 @@ export const gridSlice = createSlice({
       state.network.elements = action.payload;
     },
     clearElements: (state) => {
-      state.network = new Network(
-        state.network.sizeX,
-        state.network.sizeY,
-        undefined,
-        "empty"
-      );
+      state.network = new Network(state.network.sizeX, state.network.sizeY);
     },
     setCursorElement: (
       state,
@@ -44,18 +44,27 @@ export const gridSlice = createSlice({
       state.network = state.network.tick();
     },
     resetNetwork: (state, action: PayloadAction<NetworkTemplate>) => {
-      new Network(
+      const newElements = templateGenerator(
+        action.payload,
+        state.network.sizeX,
+        state.network.sizeY
+      );
+      state.network = new Network(
         state.network.sizeX,
         state.network.sizeY,
-        undefined,
-        action.payload
+        newElements
       );
     },
   },
 });
 
-export const { setElements, clearElements, setCursorElement, tick } =
-  gridSlice.actions;
+export const {
+  setElements,
+  clearElements,
+  setCursorElement,
+  tick,
+  resetNetwork,
+} = gridSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type
 export const selectNetwork = (state: RootState) => state.grid.network;

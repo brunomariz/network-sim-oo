@@ -25,7 +25,7 @@ function NetworkSimulator({}: Props) {
     <div>
       <Navbar></Navbar>
 
-      <div className="overflow-scoll pt-20 h-full min-h-screen flex justify-center items-center min-w-max bg-gray-100">
+      <div className="overflow-scoll pt-20 px-2 h-full min-h-screen flex justify-center items-center min-w-max bg-gray-100">
         <NetworkGrid></NetworkGrid>
       </div>
     </div>
