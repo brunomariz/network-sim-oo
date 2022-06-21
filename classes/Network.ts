@@ -93,6 +93,6 @@ export default class Network {
     });
 
     this.elements = newElements;
-    return this;
+    return new Network(this.sizeX, this.sizeY, this.elements);
   }
 }

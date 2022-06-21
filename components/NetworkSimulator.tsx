@@ -17,19 +17,19 @@ function NetworkSimulator({}: Props) {
   const running = useAppSelector(selectRunning);
   const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    const newIntervalId = setInterval(() => {
-      if (running) {
-        // setElements(network.tick().elements);
-        dispatch(tick());
-      }
-    }, 250);
-
-    // Clear intervals
-    for (let i = 1; i < Number(newIntervalId); i++) {
-      window.clearInterval(i);
+  // useEffect(() => {
+  const newIntervalId = setInterval(() => {
+    if (running) {
+      // setElements(network.tick().elements);
+      dispatch(tick());
     }
-  }, [running]);
+  }, 250);
+
+  // Clear intervals
+  for (let i = 1; i < Number(newIntervalId); i++) {
+    clearInterval(i);
+  }
+  // }, [running]);
 
   // const setElements = (elements: NetworkFeature[][]) => {
   // let alteredNetwork = new Network(

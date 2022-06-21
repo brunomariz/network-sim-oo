@@ -1,8 +1,6 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import { Provider } from "react-redux";
 import NetworkSimulator from "../components/NetworkSimulator";
-import store from "../redux/store";
 
 const Home: NextPage = () => {
   return (
@@ -13,9 +11,7 @@ const Home: NextPage = () => {
           content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"
         />
       </Head>
-      <Provider store={store}>
-        <NetworkSimulator></NetworkSimulator>
-      </Provider>
+      <NetworkSimulator></NetworkSimulator>
     </>
   );
 };
