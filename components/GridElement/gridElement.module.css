@@ -15,15 +15,15 @@
 }
 
 .linkElement {
-  @apply bg-opacity-40;
+  @apply bg-opacity-50;
 }
 
 .tpElement {
   background: #053234;
-  @apply linkElement opacity-30;
+  @apply linkElement opacity-50;
 }
 .justTransmittedLink {
-  @apply opacity-40;
+  @apply opacity-[55%];
 }
 .transmittingLink {
   @apply opacity-100;
