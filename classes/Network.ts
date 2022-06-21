@@ -1,6 +1,5 @@
 import { TransmissionStatus } from "../@types/transmissionStatus";
 import Empty from "./Empty";
-import Link from "./Link";
 import NetworkFeature from "./NetworkFeature";
 import Node from "./Node";
 import { Signal } from "./Signal";
@@ -93,6 +92,6 @@ export default class Network {
     });
 
     this.elements = newElements;
-    return this;
+    return new Network(this.sizeX, this.sizeY, this.elements);
   }
 }

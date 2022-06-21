@@ -1,42 +1,41 @@
-import React, { useState } from "react";
-import { FiPause, FiPlay, FiRefreshCw } from "react-icons/fi";
+import React from "react";
 import { BsCircle, BsCircleFill, BsSquareFill } from "react-icons/bs";
+import { CgTrashEmpty } from "react-icons/cg";
+import { FiPause, FiPlay } from "react-icons/fi";
 import { networkFeatureCategories } from "../../@types/networkFeatureCategories";
-import Network from "../../classes/Network";
-import NavButton from "../NavButton/NavButton";
+import {
+  clearElements,
+  setCursorElement,
+  tick,
+} from "../../redux/features/grid/gridSlice";
+import {
+  selectRunning,
+  start,
+  stop,
+} from "../../redux/features/simulation/simulationSlice";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import DropdownMenu from "../DropdownMenu/DropdownMenu";
+import NavButton from "../NavButton/NavButton";
 
-type Props = {
-  setRun: Function;
-  setNetwork: Function;
-  setElements: Function;
-  setActiveElement: Function;
-  run: boolean;
-  networkSize: number[];
-  network: Network;
-};
+type Props = {};
 
-function Navbar({
-  setRun,
-  setNetwork,
-  setElements,
-  setActiveElement,
-  run,
-  networkSize,
-  network,
-}: Props) {
+function Navbar({}: Props) {
   const resetNetwork = (running: boolean, template: NetworkTemplate) => {
-    setRun(false);
-    setNetwork(
-      new Network(networkSize[0], networkSize[1], undefined, template)
-    );
-    setRun(running);
+    dispatch(stop());
+    // setNetwork(
+    //   new Network(networkSize[0], networkSize[1], undefined, template)
+    // );
+    dispatch;
+    if (running) dispatch(start());
   };
+  const running = useAppSelector(selectRunning);
+  const dispatch = useAppDispatch();
+
   return (
     <div className="fixed top-0 left-0 bg-gray-50 w-screen border-b-2 shadow-sm z-10 flex items-center sm:overflow-visible overflow-scroll ">
       <div className="inline text-2xl p-5 font-semibold">Network Simulator</div>
       <DropdownMenu
-        run={run}
+        run={running}
         buttons={[
           {
             title: "Icon",
@@ -53,62 +52,77 @@ function Navbar({
         ]}
         title="Network Templates"
       ></DropdownMenu>
-      <button
-        className={"mx-2"}
-        onClick={() => {
-          setRun(false);
-          setNetwork(
-            new Network(networkSize[0], networkSize[1], undefined, "empty")
-          );
-        }}
-      >
-        <FiRefreshCw></FiRefreshCw>
-      </button>
-      <button
-        className={"mx-2"}
-        onClick={() => {
-          setRun(false);
-        }}
-      >
-        <div className="flex items-center">
-          <FiPause></FiPause> <span className="pl-1">Stop</span>
-        </div>
-      </button>
 
+      {/* Clear Button */}
       <NavButton
         onClick={() => {
-          setRun(true);
+          dispatch(stop());
+          dispatch(clearElements());
         }}
-        disabled={run}
+        disabled={false}
+        text="Clear"
+        icon={<CgTrashEmpty></CgTrashEmpty>}
+      ></NavButton>
+
+      {/* Stop button */}
+      <NavButton
+        onClick={() => {
+          dispatch(stop());
+        }}
+        disabled={!running}
+        text="Stop"
+        icon={<FiPause></FiPause>}
+      ></NavButton>
+
+      {/* Start button */}
+      <NavButton
+        onClick={() => {
+          dispatch(start());
+        }}
+        disabled={running}
         text="Start"
         icon={<FiPlay></FiPlay>}
         fill
       ></NavButton>
+
+      {/* Tick button */}
       <NavButton
         text="Tick"
         onClick={() => {
-          setElements(network.tick().elements);
+          dispatch(tick());
         }}
-        disabled={run}
+        disabled={running}
         icon={<></>}
         outline
       ></NavButton>
+
+      {/* Empty button */}
       <NavButton
         disabled={false}
         icon={<BsCircle></BsCircle>}
-        onClick={() => setActiveElement(networkFeatureCategories.Empty)}
+        onClick={() =>
+          dispatch(setCursorElement(networkFeatureCategories.Empty))
+        }
         text="Empty"
       ></NavButton>
+
+      {/* TP button */}
       <NavButton
         text="Twisted Pair"
-        onClick={() => setActiveElement(networkFeatureCategories.TwistedPair)}
+        onClick={() =>
+          dispatch(setCursorElement(networkFeatureCategories.TwistedPair))
+        }
         disabled={false}
         icon={<BsCircleFill></BsCircleFill>}
       ></NavButton>
+
+      {/* Node button */}
       <NavButton
         disabled={false}
         icon={<BsSquareFill></BsSquareFill>}
-        onClick={() => setActiveElement(networkFeatureCategories.Node)}
+        onClick={() =>
+          dispatch(setCursorElement(networkFeatureCategories.Node))
+        }
         text="Node"
       ></NavButton>
     </div>
