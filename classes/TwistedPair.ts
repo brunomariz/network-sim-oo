@@ -22,10 +22,6 @@ export default class TwistedPair extends Link {
       this.neighborsTransmitting &&
       this.transmissionStatus == TransmissionStatus.notTransmitting
     ) {
-      if (this.sufferedInterference) {
-        console.log("interf");
-      }
-
       return new TwistedPair(
         TransmissionStatus.transmitting,
         new Signal(this.neighborsSignalSum, this.sufferedInterference)

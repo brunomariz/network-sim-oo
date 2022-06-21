@@ -62,11 +62,9 @@ export default class Network {
     switch (template) {
       case "icon":
         generateIcon();
-        console.log("template icon");
         break;
       case "stripes":
         generateStripes();
-        console.log("template stripes");
         break;
       case "empty":
         break;
