@@ -9,15 +9,10 @@ import { setElements } from "../../redux/features/grid/gridSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import GridElement from "../GridElement/GridElement";
 import sytles from "./networkGrid.module.css";
-type Props = {
-  // elements: NetworkFeature[][];
-  // setElements: Function;
-};
+type Props = {};
 
-function NetworkGrid({}: // elements, setElements
-Props) {
+function NetworkGrid({}: Props) {
   const cursorElement = useAppSelector((state) => state.grid.cursorElement);
-  // const elements = useAppSelector(state=> state.grid.network.elements)
   const network = useAppSelector((state) => state.grid.network);
   const dispatch = useAppDispatch();
 
@@ -46,7 +41,6 @@ Props) {
       newElements[position.x][position.y] = new Empty();
     }
 
-    // setElements(newElements);
     dispatch(setElements(newElements));
   };
 
